@@ -99,7 +99,9 @@ unsigned short oaSpeed = 90; //PWM value while driving in obstacle avoidance (OA
      //   String oaSettings[noSettings] =  {"OA BF PWM", "OA BF time", "OA LR PWM" , "OA LR time", "Safe Distance"};   //The obstacle avoidance mode settings and values. 
  unsigned short  oaSettingsValue[noSettings] = {90,         250,           200,          200,          8 };     //Time in millisecond, Safe distance is in inch. 
                                       /*Index:  0             1             2             3             4*/
-                                      
+                                      //OA BF PWM - Obstacle avoidance Backward-Forward PWM
+                                      //OA LR PWM - Obstacle avoidance Left-Right PWM
+                                      //The same applies for the OA LR time, and OA BF time
 void loop() {
  
    if (Serial.available()) {
@@ -253,7 +255,7 @@ void Stop()
 void rightForward(int actionValue) //Sets the right motor to move forward
 {
   analogWrite(commonEnablePin, actionValue); 
-  DigitalWrite(in3, HIGH); 
+  DigitalWrite(in3, HIGH);  //using custom DigitalWrite() to toggle the extra pins added by 74HC595 shift register. 
   DigitalWrite(in4, LOW); 
 }
 
